@@ -1,0 +1,40 @@
+1. Készíts webszervert az Express kerettrendszer segítségével.
+2. A szerver szogálja ki a public/css mappa alatt elhelyezkedő fájlokat
+3. Ha a kérés path-ja az / a válaszban küldd vissza a public/index.html-t
+4. A /users oldalon megjelenítednő adatokat a services/user-data.service.js fájlban találod.
+   Készíts egy modult, ami a következő adatokat biztosítja a szerver számára:
+   (Mindegyik metódus aszinkron módon működjön, egy error-first callbackben adja vissza az adatokat. )
+   a) Korosztályok - (ageGroups-ként expotálja a user-data.service modul)
+   b) Országok - a users tömb alapján készíts egy listát azokkal az országokkal, 
+        amiket a user adatok location.country propertyjében találsz.
+        A listában egy ország csak egyszer szerepeljen és legyen ABC szerint rendezett.
+   c) Felhasználó - egy user.id.value szerint azonosított user adat 
+   d) Korcsoport és ország szerint szűrt felhasználói adatok 
+        A metódus opcionálisan kapja meg egy ország nevét, illetve egy korcsoport nevét (ageGroup.name).
+        Ha nincs megadva szűrőfeltétel, akkor adja vissza a teljes user listát.
+        A korcsoport szűrésnél a user.dob.age propertyje alapján kell szűrni,
+        az ageGroups tömbből a korcsoport név alapján keresd ki a megfelelő elemet,
+        nézd meg, hogy a user kora az [ageGroup.min, ageGroup.max] zárt intervallumba esik-e.
+        Ország szerinti szűrésnél nézd meg. hogy a user.location.country propertyje egyezik-e az ország nevével.
+5. Készíts routert a /user path-okhoz.
+6. Állíts be ejs view engine-t. 
+   Installáld az ejs modult (terminál megnyitása F1>Open shell, majd npm install ejs)
+   A views mappa alatt levő html fájlokat alakíts át ejs template-ekké.
+
+   A user.ejs egy user adatot fog megjeleníteni
+   Állítsd be a users routert így hogy a user/[id] (pl /users/1NNaN29472446%2003) 
+   kérésekre a view engine-enk a megfelelő usert átdva a user view-t küldje vissza.
+
+   A users.ejs template változói:
+        A szűrt felhasználó lista,
+        Az országok lista,
+        A korcsoportok lista,
+        A kiválasztott ország
+        A kiválasztott korcsoport neve
+        A kiválasztott ország neve
+    Állítsd be a users routert így hogy a user?country=[country]&ageGroup=[ageGroup]
+    (pl ?country=France&ageGroup=40-59) kéréskre a fenti adatokat adja át view engine-nek és a users view-t küldje vissza.
+    
+
+
+    

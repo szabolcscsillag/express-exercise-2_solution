@@ -1,0 +1,120 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Users</title>
+
+</head>
+
+<body>
+    <h1>Users</h1>
+    <div class="filter">
+        <h3>
+            <span class="material-icons">
+                flag
+            </span>
+            Country</h3>
+        <ul class="chips">
+            <%for(let i = 0; i < countries.length; i++) { %>
+                <% if (countries[i] === selectedCountry) { %>
+                    <li class="selected" onclick="selectCountry('<%=countries[i]%>')">
+                        <%=countries[i]%>
+                    </li>
+                <% } else { %>
+                    <li  onclick="selectCountry('<%=countries[i]%>')">
+                        <%=countries[i]%>
+                    </li>
+                <% } %>
+            <% } %>
+        </ul>
+    </div>
+    <div class="filter">
+        <h3>
+            <span class="material-icons">
+                escalator_warning
+            </span>
+            Age group
+        </h3>
+    <ul class="chips">
+         <%for(let i = 0; i < ageGroups.length; i++) { %>
+             <% if (ageGroups[i].name === selectedAgeGroup) { %>
+                <li class="selected" onclick="selectAgeGroup('<%=ageGroups[i].name%>')">
+                    <%=ageGroups[i].name%>
+                </li>
+             <% } else { %>
+                <li onclick="selectAgeGroup('<%=ageGroups[i].name%>')">
+                    <%=ageGroups[i].name%>
+                </li>
+          <% } %>
+        <% } %>
+    </ul>
+    </div>
+    <ul class="data-list">
+        <%for(let i = 0; i < users.length; i++) { %>
+            <li>
+                <img src="<%=users[i].picture.thumbnail%>">
+                <div>
+                    <b><%=users[i].name.title%> <%=users[i].name.first%> <%=users[i].name.last%></b>
+                    <div><%=users[i].location.country%></div>
+                    <div>Age: <%=users[i].dob.age%> </div>
+                </div>
+                <div>
+                    <a href="/users/<%=users[i].id.value%>">
+                        <i class="material-icons">arrow_forward</i>
+                    </a>
+                </div>
+            </li>
+            <%}%>
+    </ul>
+    <script>
+
+        let selectedAgeGroup = '<%=selectedAgeGroup%>';
+        let selectedCountry = '<%=selectedCountry%>';
+
+        function selectAgeGroup(ageGroup) {
+            if (ageGroup === selectedAgeGroup) {
+                selectedAgeGroup = '';
+            } else {
+                selectedAgeGroup = ageGroup;
+            }
+            reload();
+        }
+
+         function selectCountry(country) {
+            if (country === selectedCountry) {
+                selectedCountry = '';
+            } else {
+                selectedCountry = country;
+            }
+            reload();
+        }
+
+        function reload() {
+            console.log(selectedCountry, selectedAgeGroup)
+            let href = '/users';
+            if (selectedCountry || selectedAgeGroup) {
+                href += '?';
+                if (selectedCountry) {
+                   href += 'country=' + selectedCountry;
+                }
+                 if (selectedCountry && selectedAgeGroup) {
+                    href += '&';
+                 }
+                 if (selectedAgeGroup) {
+                   href += 'ageGroup=' + selectedAgeGroup;
+                }
+            }
+            location.href = href;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
